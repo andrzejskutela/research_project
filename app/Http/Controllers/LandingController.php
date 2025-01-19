@@ -9,8 +9,8 @@ class LandingController extends Controller
 {
     public function welcome(Request $request) {
         return Inertia::render('Landing', [
-            'user' => [
-                'name' => 'abc'
+            'data' => [
+                'continue_link' => route('new_participant')
             ]
         ]);
     }

@@ -10,8 +10,7 @@ defineProps({ data: Object })
 <template>
   <Layout>
     <Head title="Psychology Research Project" />
-    <h1 class="text-center text-lg">Welcome</h1>
-    <p>landing page of the research project some simple info</p>
-    <fwb-button gradient="green" :href="data.continue_link">I want to participate</fwb-button>
+    <h1 class="text-center text-lg">Impact of Mindfulness Meditation on Visual Short-term Memory</h1>
+    <p>final page, thank you for participantion, and maybe ask for email where in the end I can send out findings</p>
   </Layout>
 </template>
