@@ -26,7 +26,7 @@ class MemoryTest {
 		foreach ($iterator as $set => $folder) {
 			$imageOrder = $this->getPseudoRandomSortedImageIds($set);
 			foreach ($imageOrder as $i) {
-				$ret[$set][] = '/images/' . $folder . '/' . str_pad($i, 2, '0', STR_PAD_LEFT) . '.jpg';
+				$ret[$set][] = asset('/images/' . $folder . '/' . str_pad($i, 2, '0', STR_PAD_LEFT) . '.jpg');
 			}
 		}
 

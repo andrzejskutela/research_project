@@ -8,11 +8,11 @@ Route::controller(LandingController::class)->group(function() {
     Route::get('/', 'welcome');
 });
 
-Route::controller(ResearchController::class)->group(function() {
-    Route::get('/new-participant', 'start')->name('new_participant');
-    Route::get('/info-form', 'infoForm')->name('info_form');
-    Route::get('/experiment', 'experiment')->name('experiment');
-    Route::get('/test-explanation', 'explanation')->name('explanation');
-    Route::get('/memory-test', 'memoryTest')->name('memory_test');
-    Route::get('/final', 'final')->name('final');
+Route::middleware([App\Http\Middleware\CheckUUID::class])->controller(ResearchController::class)->group(function() {
+    Route::get('/new-participant/{uuid}', 'start')->name('new_participant');
+    Route::get('/info-form/{uuid}', 'infoForm')->name('info_form');
+    Route::get('/experiment/{uuid}', 'experiment')->name('experiment');
+    Route::get('/test-explanation/{uuid}', 'explanation')->name('explanation');
+    Route::get('/memory-test/{uuid}', 'memoryTest')->name('memory_test');
+    Route::get('/final/{uuid}', 'final')->name('final');
 });
