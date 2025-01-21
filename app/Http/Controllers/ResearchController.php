@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Research\MemoryTest;
 
 class ResearchController extends Controller
 {
@@ -40,9 +41,13 @@ class ResearchController extends Controller
     }
 
     public function memoryTest(Request $request) {
+        $test = app()->make(MemoryTest::class);
+
         return Inertia::render('MemoryTest', [
             'data' => [
-                'continue_link' => route('final')
+                'continue_link' => route('final'),
+                'order' => $test->getOrder(),
+                'images' => $test->getTestImages(),
             ]
         ]);
     }
