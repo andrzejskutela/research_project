@@ -5,17 +5,21 @@
 @import '/node_modules/flowbite-vue/dist/index.css';
 
 
-.fade-shuffle-enter-active,
-.fade-shuffle-leave-active {
-	transition: all 0.5s ease-out;
+.fade-shuffle-enter-active img,
+.fade-shuffle-leave-active img {
+	transition: all 0.4s ease-out;
 }
 
-.fade-shuffle-enter-from,
-.fade-shuffle-leave-to {
+.fade-shuffle-enter-from img,
+.fade-shuffle-leave-to img {
 	opacity: 0;
-  	transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
-.fade-shuffle-leave-active {
-  position: absolute;
+.fade-shuffle-leave-to img {
+	transform: translateX(30px);
+}
+
+.fade-shuffle-enter-to img,
+.fade-shuffle-leave-from img {
+	opacity: 1;
 }

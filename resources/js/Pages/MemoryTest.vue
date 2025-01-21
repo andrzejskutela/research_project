@@ -31,7 +31,11 @@ const showImages = computed(() => {
 function select(item) {
   let currentSet = data.order[currentSetIndex.value]
   if (currentPicture.value < data.images[currentSet].length) {
-    window.scrollTo(0,0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
 
     if (item === currentPicture.value) {
       currentPicture.value += 1;
@@ -57,8 +61,8 @@ function select(item) {
 <template>
   <Layout>
     <Head title="Psychology Research Project" />
-    <h1 class="text-center text-lg">Impact of Mindfulness Meditation on Visual Short-term Memory</h1>
-    <p class="text-2xl">
+    <h1 class="text-center text-2xl mb-8">Impact of Mindfulness Meditation on Visual Short-term Memory</h1>
+    <p class="text-2xl sticky top-0 left-0 bg-white border-b-2 border-solid border-color-300 py-4 z-10">
       <span>Select the newly added image: </span>
       <span class="text-green-500">{{ correctAnswers }} correct answers</span>
     </p>

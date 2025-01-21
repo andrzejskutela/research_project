@@ -38,12 +38,13 @@ class MemoryTest {
 	}
 
 	public function getImageDisplayRandomnessSettings() : array {
+		srand(34234);
 		$ret = [];
 
 		for ($i = 0; $i < 40; $i++) {
 			$tmp = [];
 			for ($j = 0; $j <= $i; $j++) {
-				$tmp[] = rand();
+				$tmp[] = rand(1,99);
 			}
 
 			$ret[] = implode(',', $tmp);
