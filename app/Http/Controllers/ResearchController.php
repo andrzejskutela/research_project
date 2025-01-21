@@ -48,6 +48,7 @@ class ResearchController extends Controller
                 'continue_link' => route('final'),
                 'order' => $test->getOrder(),
                 'images' => $test->getTestImages(),
+                'displayRules' => $test->getImageDisplayRandomnessSettings(),
             ]
         ]);
     }

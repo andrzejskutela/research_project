@@ -19,22 +19,48 @@ class MemoryTest {
 		$this->order = $order;
 	}
 
-	public function getTestImages() {
+	public function getTestImages() : array {
 		$ret = [self::SET_MEN => [], self::SET_WOMEN => [], self::SET_NATURE => []];
 		$iterator = [self::SET_MEN => 'men', self::SET_WOMEN => 'women', self::SET_NATURE => 'nature'];
 		
 		foreach ($iterator as $set => $folder) {
 			$imageOrder = $this->getPseudoRandomSortedImageIds($set);
 			foreach ($imageOrder as $i) {
-				$ret[$set][] = '/public/images/' . $folder . '/' . str_pad($i, 2, '0', STR_PAD_LEFT) . '.jpg';
+				$ret[$set][] = '/images/' . $folder . '/' . str_pad($i, 2, '0', STR_PAD_LEFT) . '.jpg';
 			}
 		}
 
 		return $ret;
 	}
 
-	public function getOrder() {
+	public function getOrder() : array {
 		return $this->order;
+	}
+
+	public function getImageDisplayRandomnessSettings() : array {
+		$ret = [];
+
+		for ($i = 0; $i < 40; $i++) {
+			$tmp = [];
+			for ($j = 0; $j <= $i; $j++) {
+				$tmp[] = rand();
+			}
+
+			$ret[] = implode(',', $tmp);
+		}
+
+		$ret = [
+			0 => '1',
+			1 => '1,2',
+			2 => '1,3,2',
+			3 => '1,2,3,4',
+			4 => '2,3,5,4,1',
+			5 => '5,4,2,6,1,3',
+			6 => '6,2,3,1,5,4,7',
+			7 => '8,1,7,6,4,5,2,3',
+		] + $ret;
+
+		return $ret;
 	}
 
 	protected function getPseudoRandomSortedImageIds(int $seed) : array {
