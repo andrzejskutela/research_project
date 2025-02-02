@@ -19,7 +19,20 @@ class ResearchController extends Controller
     public function introduction(Request $request) {
         return Inertia::render('Introduction', [
             'data' => [
-                'continue_link' => route('preparation', ['uuid' => session('unique_id')])
+                'continue_link' => route('preparation', ['uuid' => session('unique_id')]),
+                'order' => [1],
+                'images' => [
+                    1 => [
+                        asset('/images/flowers/01.jpg'),
+                        asset('/images/flowers/02.jpg'),
+                        asset('/images/flowers/03.jpg')
+                    ]
+                ],
+                'displayRules' => $ret = [
+                    0 => '1',
+                    1 => '1,2',
+                    2 => '1,3,2',
+                ],
             ]
         ]);
     }

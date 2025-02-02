@@ -9,10 +9,9 @@ defineProps({ data: Object })
 
 <template>
   <Layout>
-    <Head title="Psychology Research Project" />
-    <h1 class="text-center text-lg">Impact of Mindfulness Meditation on Visual Short-term Memory</h1>
-    <p>save button and follow to next page - info about what's going to happen</p>
-    <p class="text-italic">Explanation of the task ahead.</p>
+    <Head title="Cognitive Psychology Research Project" />
+    <h1 class="text-center text-2xl pb-2">Impact of Different Preparation Methods on Visual Short-term Memory</h1>
+    <p>at this point I know intervention vs control, this is very audio is played</p>
     <fwb-button gradient="green" :href="data.continue_link">Ready</fwb-button>
   </Layout>
 </template>
