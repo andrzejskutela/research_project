@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('data_leads', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
+            $table->tinyInteger('leg');
             $table->string('email')->nullable();
             $table->boolean('is_new_browser');
             $table->string('ip');
