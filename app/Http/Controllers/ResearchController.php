@@ -8,47 +8,47 @@ use App\Research\MemoryTest;
 
 class ResearchController extends Controller
 {
-    public function start(Request $request) {
-        return Inertia::render('Ethics', [
+    public function newParticipant(Request $request) {
+        return Inertia::render('NewParticipant', [
             'data' => [
-                'continue_link' => route('info_form', ['uuid' => session('unique_id')])
+                'continue_link' => route('introduction', ['uuid' => session('unique_id')])
             ]
         ]);
     }
 
-    public function infoForm(Request $request) {
-        return Inertia::render('InfoForm', [
+    public function introduction(Request $request) {
+        return Inertia::render('Introduction', [
             'data' => [
-                'continue_link' => route('experiment', ['uuid' => session('unique_id')])
+                'continue_link' => route('preparation', ['uuid' => session('unique_id')])
             ]
         ]);
     }
 
-    public function experiment(Request $request) {
-        return Inertia::render('Experiment', [
+    public function preparation(Request $request) {
+        return Inertia::render('Preparation', [
             'data' => [
-                'continue_link' => route('explanation', ['uuid' => session('unique_id')])
+                'continue_link' => route('memory_task', ['uuid' => session('unique_id')])
             ]
         ]);
     }
 
-    public function explanation(Request $request) {
-        return Inertia::render('Experiment', [
-            'data' => [
-                'continue_link' => route('memory_test', ['uuid' => session('unique_id')])
-            ]
-        ]);
-    }
-
-    public function memoryTest(Request $request) {
+    public function memoryTask(Request $request) {
         $test = app()->make(MemoryTest::class);
 
-        return Inertia::render('MemoryTest', [
+        return Inertia::render('MemoryTask', [
             'data' => [
-                'continue_link' => route('final', ['uuid' => session('unique_id')]),
+                'continue_link' => route('form', ['uuid' => session('unique_id')]),
                 'order' => $test->getOrder(),
                 'images' => $test->getTestImages(),
                 'displayRules' => $test->getImageDisplayRandomnessSettings(),
+            ]
+        ]);
+    }
+
+    public function form(Request $request) {
+        return Inertia::render('Form', [
+            'data' => [
+                'continue_link' => route('final', ['uuid' => session('unique_id')])
             ]
         ]);
     }

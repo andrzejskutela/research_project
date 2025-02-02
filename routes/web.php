@@ -9,10 +9,10 @@ Route::controller(LandingController::class)->group(function() {
 });
 
 Route::middleware([App\Http\Middleware\CheckUUID::class])->controller(ResearchController::class)->group(function() {
-    Route::get('/new-participant/{uuid}', 'start')->name('new_participant');
-    Route::get('/info-form/{uuid}', 'infoForm')->name('info_form');
-    Route::get('/experiment/{uuid}', 'experiment')->name('experiment');
-    Route::get('/test-explanation/{uuid}', 'explanation')->name('explanation');
-    Route::get('/memory-test/{uuid}', 'memoryTest')->name('memory_test');
+    Route::get('/new-participant/{uuid}', 'newParticipant')->name('new_participant');
+    Route::get('/introduction/{uuid}', 'introduction')->name('introduction');
+    Route::get('/preparation/{uuid}', 'preparation')->name('preparation');
+    Route::get('/memory-task/{uuid}', 'memoryTask')->name('memory_task');
+    Route::get('/form/{uuid}', 'form')->name('form');
     Route::get('/final/{uuid}', 'final')->name('final');
 });
