@@ -12,9 +12,7 @@ class MemoryTest {
 
 	public function __construct(?array $order = null) {
 		if (!$order || count($order) !== 3) {
-			$order = [self::SET_MEN, self::SET_WOMEN, self::SET_NATURE];
-			shuffle($order);
-
+			$order = [ self::SET_NATURE, self::SET_WOMEN, self::SET_MEN, ];
 		}
 
 		$this->order = $order;

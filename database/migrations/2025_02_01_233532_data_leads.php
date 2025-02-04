@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             $table->tinyInteger('leg');
+            $table->tinyInteger('data_entry_code');
             $table->string('email')->nullable();
             $table->boolean('is_new_browser');
             $table->string('ip');
@@ -29,9 +30,9 @@ return new class extends Migration
         Schema::create('data_measurements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('data_lead_id')->references('id')->on('data_leads')->onDelete('cascade');
-            $table->tinyInteger('data_set_uid');
+            $table->tinyInteger('dataset_uid');
             $table->smallInteger('score');
-            $table->smallInteger('time_seconds');
+            $table->decimal('time_seconds', total: 6, places: 2);
             $table->json('time_breakdown');
         });
     }

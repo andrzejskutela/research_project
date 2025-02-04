@@ -15,8 +15,8 @@ defineProps({ data: Object })
     the same image will appear on the list accompanied with another image in similar theme. I want you to select the <span class="italic">*new*</span> image that you have not seen before. This will continue, until either,
     you successfuly select the newly-added image 40 times, or make a mistake. The score will always be shown to you and you will have 30 seconds each time to select an image.
     Remember to always select the image that has <span class="italic">*not*</span> yet been displayed to you.</p>
-    <p class="text-xl my-6 text-justify">You will have three trials, each time with different set of images: male faces, female faces, and nature landscapes. The order in which
-    you see these images is random. In the next page, you will have the opportunity to familiarise yourself with the system.
+    <p class="text-xl my-6 text-justify">You will have three trials, each time with different set of images in the following order: nature, female faces, and male faces. 
+     In the next page, you will have the opportunity to familiarise yourself with the system.
     You will be presented with the game, using a set of only three flower images.
     This trial is NOT part of the task, it is only there to show you how the actual task works. Once you familiarise yourself with the game, you will be redirected to the task's landing page.</p>
     <p class="text-xl my-6 text-justify">From this point on, please do not refresh the page or go back, as this will invalidate your results.</p>

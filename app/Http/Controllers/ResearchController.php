@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Research\MemoryTest;
+use Illuminate\Validation\Rule;
+use App\Models\DataLead;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Arr;
 
 class ResearchController extends Controller
 {
@@ -77,6 +82,54 @@ class ResearchController extends Controller
     }
 
     public function registerData(Request $request) {
-        return response()->json(['a' => 123]);
+        $request->validate([
+            'uuid' => ['required', 'uuid', Rule::in( [ session('unique_id') ] ),],
+            'set' => [
+                'required',
+                Rule::in([ MemoryTest::SET_NATURE, MemoryTest::SET_MEN, MemoryTest::SET_WOMEN, MemoryTest::SET_FLOWERS ]),
+            ],
+            'score' => 'required|integer|between:0,40',
+            'timings' => 'required|array',
+            'timings.*' => 'integer'
+        ]);
+
+        $lead = DataLead::firstOrCreate(
+            [ 'uuid' => $request->input('uuid') ],
+            [
+                'leg' => DataLead::LEG_CONTROL, // get from session
+                'data_entry_code' => DataLead::ENTRY_SINGLE,
+                'email' => null,
+                'is_new_browser' => true,
+                'ip' => $request->ip(),
+                'country' => null,
+                'ip_info' => null,
+                'age' => null,
+                'gender' => null,
+                'meditation_experience' => null
+        ]);
+
+        $validator = Validator::make($request->all(), [
+             'set' => [
+                'required',
+                Rule::unique('data_measurements', 'dataset_uid')->where(function (Builder $query) use($lead) {
+                    $query->where('data_lead_id', $lead->id);
+                })
+            ],
+        ])->validate();
+
+        $totalTime = 0;
+        $mappedTimings = Arr::map($request->input('timings'), function (int $value, string $key) use (&$totalTime) {
+            $totalTime += $value;
+            return round((int)$value / 1000, 2);
+        });
+
+        $lead->measurements()->create([
+            'dataset_uid' => $request->input('set'),
+            'score' => $request->input('score'),
+            'time_seconds' => round($totalTime / 1000, 2),
+            'time_breakdown' => $mappedTimings,
+        ]);
+
+        return response()->json(['status' => 'success']);
     }
 }
