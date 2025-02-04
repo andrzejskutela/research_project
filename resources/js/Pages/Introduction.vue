@@ -13,6 +13,5 @@ defineProps({ data: Object })
     <Head title="Cognitive Psychology Research Project" />
     <h1 class="text-center text-2xl pb-2">Impact of Different Preparation Methods on Visual Short-term Memory</h1>
     <MemoryGame :data="data"></MemoryGame>
-    <fwb-button gradient="green" :href="data.continue_link">Ready</fwb-button>
   </Layout>
 </template>

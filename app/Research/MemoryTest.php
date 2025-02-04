@@ -6,6 +6,7 @@ class MemoryTest {
 	const SET_MEN = 1;
 	const SET_WOMEN = 2;
 	const SET_NATURE = 3;
+	const SET_FLOWERS = 4;
 
 	protected array $order = [];
 

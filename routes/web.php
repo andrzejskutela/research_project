@@ -15,4 +15,6 @@ Route::middleware([App\Http\Middleware\CheckUUID::class])->controller(ResearchCo
     Route::get('/memory-task/{uuid}', 'memoryTask')->name('memory_task');
     Route::get('/form/{uuid}', 'form')->name('form');
     Route::get('/final/{uuid}', 'final')->name('final');
+
+    Route::post('/register-data/{uuid}', 'registerData')->name('register_data');
 });

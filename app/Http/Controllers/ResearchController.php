@@ -20,9 +20,11 @@ class ResearchController extends Controller
         return Inertia::render('Introduction', [
             'data' => [
                 'continue_link' => route('preparation', ['uuid' => session('unique_id')]),
-                'order' => [1],
+                'data_link' => route('register_data', ['uuid' => session('unique_id')]),
+                'uuid' => session('unique_id'),
+                'order' => [ MemoryTest::SET_FLOWERS ],
                 'images' => [
-                    1 => [
+                    MemoryTest::SET_FLOWERS => [
                         asset('/images/flowers/01.jpg'),
                         asset('/images/flowers/02.jpg'),
                         asset('/images/flowers/03.jpg')
@@ -72,5 +74,9 @@ class ResearchController extends Controller
                 
             ]
         ]);
+    }
+
+    public function registerData(Request $request) {
+        return response()->json(['a' => 123]);
     }
 }
