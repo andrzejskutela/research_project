@@ -23,6 +23,7 @@ return new class extends Migration
             $table->json('ip_info')->nullable();
             $table->smallInteger('age')->nullable();
             $table->char('gender', length: 1)->nullable();
+            $table->boolean('completed');
             $table->tinyInteger('meditation_experience')->nullable();
             $table->timestamps();
         });

@@ -9,12 +9,17 @@ use Illuminate\Support\Str;
 class LandingController extends Controller
 {
     public function welcome(Request $request) {
-        session(['unique_id' => Str::uuid()]);
-
+        
         return Inertia::render('Landing', [
             'data' => [
-                'continue_link' => route('new_participant', ['uuid' => session('unique_id')])
+                'continue_link' => route('redirect_uuid'),
+                'refresh_error' => session('refresh_error')
             ]
         ]);
+    }
+
+    public function redirectWithNewUUID(Request $request) {
+        session(['unique_id' => Str::uuid(), 'visited' => []]);
+        return to_route('new_participant', ['uuid' => session('unique_id')]);
     }
 }

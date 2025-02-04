@@ -2,7 +2,7 @@
 import Layout from './Layout.vue'
 import { Head } from '@inertiajs/vue3'
 
-import { FwbButton } from 'flowbite-vue'
+import { FwbButton, FwbAlert } from 'flowbite-vue'
 
 defineProps({ data: Object })
 </script>
@@ -11,6 +11,9 @@ defineProps({ data: Object })
   <Layout>
     <Head title="Cognitive Psychology Research Project" />
     <h1 class="text-center text-4xl pb-2">Welcome</h1>
+    <div v-if="data.refresh_error" class="my-6">
+      <fwb-alert class="border-t-4 rounded-none text-xl" icon type="warning">Page refresh was detected, your results are invalidated.</fwb-alert>
+    </div>
     <p class="text-xl my-6 text-justify">Thank you for visiting this website. Please read the following introductions carefully before proceding:</p>
     <p class="text-xl mb-6 text-justify">The following pages contain a short task designed to measure the capacity of your visual short-term memory in relation to a variable preparation.
     The exact instructions will be given in the next page, but before you continue I ask you to have 15 minutes of uninterupted time in a quiet environment.

@@ -6,9 +6,10 @@ use App\Http\Controllers\ResearchController;
 
 Route::controller(LandingController::class)->group(function() {
     Route::get('/', 'welcome');
+    Route::get('/init', 'redirectWithNewUUID')->name('redirect_uuid');
 });
 
-Route::middleware([App\Http\Middleware\CheckUUID::class])->controller(ResearchController::class)->group(function() {
+Route::middleware([App\Http\Middleware\CheckUUID::class, 'cache.headers:no_store'])->controller(ResearchController::class)->group(function() {
     Route::get('/new-participant/{uuid}', 'newParticipant')->name('new_participant');
     Route::get('/introduction/{uuid}', 'introduction')->name('introduction');
     Route::get('/preparation/{uuid}', 'preparation')->name('preparation');

@@ -22,6 +22,11 @@ class ResearchController extends Controller
     }
 
     public function introduction(Request $request) {
+        $controlRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_CONTROL)->where('is_new_browser', true)->count();
+        $interventionRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_INTERVENTION)->where('is_new_browser', true)->count();
+        $leg = $controlRuns > $interventionRuns ? DataLead::LEG_INTERVENTION : DataLead::LEG_CONTROL;
+        session(['leg' => $leg]);
+
         return Inertia::render('Introduction', [
             'data' => [
                 'continue_link' => route('preparation', ['uuid' => session('unique_id')]),
@@ -96,7 +101,7 @@ class ResearchController extends Controller
         $lead = DataLead::firstOrCreate(
             [ 'uuid' => $request->input('uuid') ],
             [
-                'leg' => DataLead::LEG_CONTROL, // get from session
+                'leg' => session('leg', DataLead::LEG_INTERVENTION),
                 'data_entry_code' => DataLead::ENTRY_SINGLE,
                 'email' => null,
                 'is_new_browser' => true,
@@ -105,7 +110,8 @@ class ResearchController extends Controller
                 'ip_info' => null,
                 'age' => null,
                 'gender' => null,
-                'meditation_experience' => null
+                'meditation_experience' => null,
+                'completed' => false,
         ]);
 
         $validator = Validator::make($request->all(), [

@@ -11,6 +11,14 @@ let correctAnswers = ref(0);
 let currentDisplaySet = ref(data.order[currentSetIndex.value]);
 let setTimer = 0
 let uploadTimer = []
+let allowExit = false
+
+window.addEventListener("beforeunload", function (e) {
+  if (allowExit === false && !window.confirm('Navigating back, refreshing, or closing this window will invalidate your participation. Do you want to continue?')) {
+    e.preventDefault()
+    e.returnValue = ''
+  }
+});
 
 const showImages = computed(() => {
   let allowedImages = [];
@@ -36,6 +44,7 @@ function registerTimer() {
 }
 
 function continueNextUrl() {
+  allowExit = true
   window.location.href = data.continue_link
 }
 

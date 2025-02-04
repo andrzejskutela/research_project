@@ -19,6 +19,19 @@ class CheckUUID
             return redirect('/');
         }
 
+        $controlledPaths = ['new_participant', 'introduction', 'preparation', 'memory_task',];
+        $current = $request->route()->getName();
+
+        if (in_array($current, $controlledPaths)) {
+            $visitedPaths = session('visited', []);
+            if (in_array($current, $visitedPaths)) {
+                return redirect('/')->with('refresh_error', true);
+            }
+
+            $visitedPaths[] = $current;
+            session(['visited' => $visitedPaths]);
+        }
+
         return $next($request);
     }
 }
