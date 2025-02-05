@@ -127,8 +127,11 @@ function select(item) {
           </div>
         </template>
         <template #body>
-          <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-            Well done! You have completed this section
+          <p class="text-base leading-relaxed">
+            You have completed this section. Your score is {{ correctAnswers }} correct answers.
+          </p>
+          <p v-if="data.leg == 'c'" class="my-4">You have now finished the preparation task and should be familiar with the system. When ready, please tap the button below and you will be shown
+      the memory game three more times in the following order: nature landscapes, female faces, and male faces. Good luck.
           </p>
         </template>
         <template #footer>

@@ -24,26 +24,34 @@ class ResearchController extends Controller
     public function introduction(Request $request) {
         $controlRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_CONTROL)->where('is_new_browser', true)->count();
         $interventionRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_INTERVENTION)->where('is_new_browser', true)->count();
-        $leg = $controlRuns > $interventionRuns ? DataLead::LEG_INTERVENTION : DataLead::LEG_CONTROL;
+        // $leg = $controlRuns > $interventionRuns ? DataLead::LEG_INTERVENTION : DataLead::LEG_CONTROL;
+        $leg = DataLead::LEG_INTERVENTION;
         session(['leg' => $leg]);
 
         return Inertia::render('Introduction', [
             'data' => [
-                'continue_link' => route('preparation', ['uuid' => session('unique_id')]),
+                'continue_link' => $leg === DataLead::LEG_INTERVENTION ?
+                    route('preparation', ['uuid' => session('unique_id')])
+                    : route('memory_task', ['uuid' => session('unique_id')]),
                 'data_link' => route('register_data', ['uuid' => session('unique_id')]),
                 'uuid' => session('unique_id'),
                 'order' => [ MemoryTest::SET_FLOWERS ],
+                'leg' => $leg === DataLead::LEG_INTERVENTION ? 'i' : 'c',
                 'images' => [
                     MemoryTest::SET_FLOWERS => [
                         asset('/images/flowers/01.jpg'),
                         asset('/images/flowers/02.jpg'),
-                        asset('/images/flowers/03.jpg')
+                        asset('/images/flowers/03.jpg'),
+                        asset('/images/flowers/04.jpg'),
+                        asset('/images/flowers/05.jpg')
                     ]
                 ],
                 'displayRules' => $ret = [
                     0 => '1',
                     1 => '1,2',
                     2 => '1,3,2',
+                    3 => '2,3,1,4',
+                    4 => '3,1,5,2,4',
                 ],
             ]
         ]);
@@ -52,7 +60,8 @@ class ResearchController extends Controller
     public function preparation(Request $request) {
         return Inertia::render('Preparation', [
             'data' => [
-                'continue_link' => route('memory_task', ['uuid' => session('unique_id')])
+                'continue_link' => route('memory_task', ['uuid' => session('unique_id')]),
+                'audio_uri' => asset('/audio/test.mp3'),
             ]
         ]);
     }

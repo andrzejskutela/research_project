@@ -11,7 +11,7 @@ defineProps({ data: Object })
 <template>
   <Layout>
     <Head title="Cognitive Psychology Research Project" />
-    <h1 class="text-center text-2xl pb-2">Impact of Different Preparation Methods on Visual Short-term Memory</h1>
+    <h1 class="text-center text-2xl pb-2">Impact of Preparation on Visual Short-term Memory</h1>
     <MemoryGame :data="data"></MemoryGame>
   </Layout>
 </template>

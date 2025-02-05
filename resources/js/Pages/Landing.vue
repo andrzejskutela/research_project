@@ -15,9 +15,9 @@ defineProps({ data: Object })
       <fwb-alert class="border-t-4 rounded-none text-xl" icon type="warning">Page refresh was detected, your results are invalidated.</fwb-alert>
     </div>
     <p class="text-xl my-6 text-justify">Thank you for visiting this website. Please read the following introductions carefully before proceding:</p>
-    <p class="text-xl mb-6 text-justify">The following pages contain a short task designed to measure the capacity of your visual short-term memory in relation to a variable preparation.
+    <p class="text-xl mb-6 text-justify">The following pages contain a short task designed to measure the impact of preparation on the capacity of visual short-term memory.
     The exact instructions will be given in the next page, but before you continue I ask you to have 15 minutes of uninterupted time in a quiet environment.
-    You can perform the task on your computer or tablet, altough phone is preferred. I also request you to have headphones ready for the audible part of the task.</p>
+    You can perform the task on your computer or tablet, altough phone is preferred.</p>
     <p class="text-xl mb-6 text-justify">The entire task will take no more than 15 minutes to complete, and you retain the right to withdraw at any time.
     The research is conducted in line with current ethical guidelines of the British Psychological Society and you will come to no harm.</p>
     <p class="text-xl mb-6 text-justify">I hope you will be a willing participant and enjoy the task. Once the research is finished I am happy to share the findings with you if you wish so.</p>
