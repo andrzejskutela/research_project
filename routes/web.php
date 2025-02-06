@@ -3,6 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\AdminDashboardController;
+
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
+Route::middleware('guest')->group(function () {
+    Route::get('admin-login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('admin-login', [AuthenticatedSessionController::class, 'store']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::get('/admin-dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin');
+});
+
 
 Route::controller(LandingController::class)->group(function() {
     Route::get('/', 'welcome');
