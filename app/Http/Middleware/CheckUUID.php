@@ -19,7 +19,7 @@ class CheckUUID
             return redirect('/');
         }
 
-        $controlledPaths = ['new_participant', 'introduction', 'preparation', 'memory_task',];
+        $controlledPaths = ['new_participant', 'introduction', 'preparation', 'memory_task', 'form'];
         $current = $request->route()->getName();
 
         if (in_array($current, $controlledPaths)) {

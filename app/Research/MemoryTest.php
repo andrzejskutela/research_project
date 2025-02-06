@@ -2,6 +2,8 @@
 
 namespace App\Research;
 
+use Illuminate\Support\Arr;
+
 class MemoryTest {
 	const SET_MEN = 1;
 	const SET_WOMEN = 2;
@@ -9,6 +11,13 @@ class MemoryTest {
 	const SET_FLOWERS = 4;
 
 	protected array $order = [];
+
+	public static function getAllPossibleSets() : array {
+		$reflection = new \ReflectionClass(__CLASS__);
+        return Arr::where($reflection->getConstants(), function (int $value, string $key) {
+        	return strpos($key, 'SET_') === 0;
+        });
+	}
 
 	public function __construct(?array $order = null) {
 		if (!$order || count($order) !== 3) {

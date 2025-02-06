@@ -9,8 +9,8 @@ defineProps({ data: Object })
 
 <template>
   <Layout>
-    <Head title="Psychology Research Project" />
-    <h1 class="text-center text-lg">Impact of Mindfulness Meditation on Visual Short-term Memory</h1>
-    <p>final page, thank you for participantion, and maybe ask for email where in the end I can send out findings</p>
+    <Head title="Cognitive Psychology Research Project" />
+    <h1 class="text-center text-2xl pb-2">Impact of Preparation on Visual Short-term Memory</h1>
+    <h1 class="text-center mt-8 text-4xl">Thank you!</h1>
   </Layout>
 </template>

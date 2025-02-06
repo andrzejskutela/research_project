@@ -21,10 +21,12 @@ return new class extends Migration
             $table->string('ip');
             $table->string('country')->nullable();
             $table->json('ip_info')->nullable();
-            $table->smallInteger('age')->nullable();
-            $table->char('gender', length: 1)->nullable();
+            $table->tinyInteger('age')->nullable();
+            $table->tinyInteger('gender')->nullable();
+            $table->tinyInteger('meditation_exp')->nullable();
+            $table->tinyInteger('exercise_exp')->nullable();
+            $table->tinyInteger('coffee_exp')->nullable();
             $table->boolean('completed');
-            $table->tinyInteger('meditation_experience')->nullable();
             $table->timestamps();
         });
 
@@ -35,6 +37,7 @@ return new class extends Migration
             $table->smallInteger('score');
             $table->decimal('time_seconds', total: 6, places: 2);
             $table->json('time_breakdown');
+            $table->timestamps();
         });
     }
 

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DataMeasurement extends Model
 {
-    public $timestamps = false;
     protected $table = 'data_measurements';
 
     protected $guarded = [];

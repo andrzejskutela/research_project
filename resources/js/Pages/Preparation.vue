@@ -18,7 +18,7 @@ function startPlayer() {
     const duration = player.value.duration
     const current = player.value.currentTime
 
-    audioProgress.value = Math.round(100 * current / duration)
+    audioProgress.value = Math.round(1000 * current / duration) / 10
   }, 500)
 
   player.value.addEventListener('ended', function () {

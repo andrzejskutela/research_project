@@ -36,7 +36,7 @@ class ResearchController extends Controller
                 'data_link' => route('register_data', ['uuid' => session('unique_id')]),
                 'uuid' => session('unique_id'),
                 'order' => [ MemoryTest::SET_FLOWERS ],
-                'leg' => $leg === DataLead::LEG_INTERVENTION ? 'i' : 'c',
+                'display_control_info' => $leg === DataLead::LEG_CONTROL ? true : false,
                 'images' => [
                     MemoryTest::SET_FLOWERS => [
                         asset('/images/flowers/01.jpg'),
@@ -46,7 +46,7 @@ class ResearchController extends Controller
                         asset('/images/flowers/05.jpg')
                     ]
                 ],
-                'displayRules' => $ret = [
+                'display_rules' => $ret = [
                     0 => '1',
                     1 => '1,2',
                     2 => '1,3,2',
@@ -72,9 +72,12 @@ class ResearchController extends Controller
         return Inertia::render('MemoryTask', [
             'data' => [
                 'continue_link' => route('form', ['uuid' => session('unique_id')]),
+                'data_link' => route('register_data', ['uuid' => session('unique_id')]),
+                'uuid' => session('unique_id'),
+                'display_control_info' => false,
                 'order' => $test->getOrder(),
                 'images' => $test->getTestImages(),
-                'displayRules' => $test->getImageDisplayRandomnessSettings(),
+                'display_rules' => $test->getImageDisplayRandomnessSettings(),
             ]
         ]);
     }
@@ -82,15 +85,8 @@ class ResearchController extends Controller
     public function form(Request $request) {
         return Inertia::render('Form', [
             'data' => [
-                'continue_link' => route('final', ['uuid' => session('unique_id')])
-            ]
-        ]);
-    }
-
-    public function final(Request $request) {
-        return Inertia::render('Final', [
-            'data' => [
-                
+                'uuid' => session('unique_id'),
+                'form_link' => route('register_form', ['uuid' => session('unique_id')])
             ]
         ]);
     }
@@ -107,19 +103,15 @@ class ResearchController extends Controller
             'timings.*' => 'integer'
         ]);
 
+        $isNewBrowser = $request->input('reentry_flag', '') === '' ? true : false;
+
         $lead = DataLead::firstOrCreate(
             [ 'uuid' => $request->input('uuid') ],
             [
                 'leg' => session('leg', DataLead::LEG_INTERVENTION),
                 'data_entry_code' => DataLead::ENTRY_SINGLE,
-                'email' => null,
-                'is_new_browser' => true,
+                'is_new_browser' => $isNewBrowser,
                 'ip' => $request->ip(),
-                'country' => null,
-                'ip_info' => null,
-                'age' => null,
-                'gender' => null,
-                'meditation_experience' => null,
                 'completed' => false,
         ]);
 
@@ -146,5 +138,55 @@ class ResearchController extends Controller
         ]);
 
         return response()->json(['status' => 'success']);
+    }
+
+    public function registerForm(Request $request) {
+        $request->validate([
+            'uuid' => ['required', 'uuid', Rule::in( [ session('unique_id') ] ),],
+            'age' => 'required|integer|between:18,99',
+            'email' => 'nullable|email:rfc,strict',
+            'gender' => [
+                'required',
+                Rule::in([ DataLead::GENDER_FEMALE, DataLead::GENDER_MALE, DataLead::GENDER_NA ]),
+            ],
+            'meditation' => [
+                'nullable',
+                Rule::in([ DataLead::EXP_NONE, DataLead::EXP_SOME, DataLead::EXP_REGULAR ]),
+            ],
+            'exercise' => [
+                'nullable',
+                Rule::in([ DataLead::EXP_NONE, DataLead::EXP_SOME, DataLead::EXP_REGULAR ]),
+            ],
+            'coffee' => [
+                'nullable',
+                Rule::in([ DataLead::EXP_NONE, DataLead::EXP_SOME, DataLead::EXP_REGULAR ]),
+            ],
+        ]);
+
+        $lead = DataLead::where('uuid', $request->input('uuid'))->firstOrFail();
+        $fields = [
+            'age' => 'age', 
+            'gender' => 'gender',
+            'meditation' => 'meditation_exp',
+            'exercise' => 'exercise_exp',
+            'coffee' => 'coffee_exp'
+        ];
+
+        foreach ($fields as $k => $v) {
+            $value = $request->input($k, null);
+            if ($value !== null) {
+                $lead->$v = $value;
+            }
+        }
+
+        if ($lead->measurements()->count() === count(MemoryTest::getAllPossibleSets())) {
+            $lead->completed = true;
+        }
+
+        $lead->save();
+
+        return response()->json([
+            'continue_link' => route('final')
+        ]);
     }
 }
