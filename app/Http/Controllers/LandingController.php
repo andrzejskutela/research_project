@@ -22,10 +22,4 @@ class LandingController extends Controller
         session(['unique_id' => Str::uuid(), 'visited' => []]);
         return to_route('new_participant', ['uuid' => session('unique_id')]);
     }
-
-    public function final(Request $request) {
-        return Inertia::render('Final', [
-            'data' => []
-        ]);
-    }
 }

@@ -91,6 +91,12 @@ class ResearchController extends Controller
         ]);
     }
 
+    public function final(Request $request) {
+        return Inertia::render('Final', [
+            'data' => []
+        ]);
+    }
+
     public function registerData(Request $request) {
         $request->validate([
             'uuid' => ['required', 'uuid', Rule::in( [ session('unique_id') ] ),],
@@ -112,6 +118,7 @@ class ResearchController extends Controller
                 'data_entry_code' => DataLead::ENTRY_SINGLE,
                 'is_new_browser' => $isNewBrowser,
                 'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
                 'completed' => false,
         ]);
 
@@ -186,7 +193,7 @@ class ResearchController extends Controller
         $lead->save();
 
         return response()->json([
-            'continue_link' => route('final')
+            'continue_link' => route('final', ['uuid' => session('unique_id')])
         ]);
     }
 }

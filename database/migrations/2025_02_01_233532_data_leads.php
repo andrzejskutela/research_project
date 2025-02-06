@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->boolean('is_new_browser');
             $table->string('ip');
+            $table->string('user_agent', length: 1000);
             $table->string('country')->nullable();
             $table->json('ip_info')->nullable();
             $table->tinyInteger('age')->nullable();

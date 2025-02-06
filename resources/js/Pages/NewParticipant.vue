@@ -14,8 +14,8 @@ defineProps({ data: Object })
     <p class="text-xl my-6 text-justify">I want you to play a simple memory game. You will be shown a single, positive image and all you need to do is tap, or click it. Once you do so,
     the same image will appear on the list accompanied with another image in similar theme. I want you to select the <span class="italic">*new*</span> image that you have not seen before.
     Each time you select the correct image, one new similar image will be added to the list. This will continue, until either,
-    you correctly select all the newly-added images, or make a mistake. The score will always be shown to you and you will have 30 seconds each time to select an image.
-    Remember to always select the image that has <span class="italic">*not*</span> yet been displayed to you.</p>
+    you correctly select all the newly-added images, or make a mistake.
+    Remember to always select the image that has <span class="italic">*not*</span> yet been shown to you.</p>
     <p class="text-xl my-6 text-justify">In the next page, you will have the opportunity to familiarise yourself with the game and prepare for the memory test.
     You will be presented with a list of five flower images. Please select them in a way described above.</p>
     <p class="text-xl my-6 text-justify">From this point on, please do not refresh the page or go back, as this will invalidate your results.</p>
