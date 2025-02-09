@@ -11,13 +11,9 @@ import { Link } from '@inertiajs/vue3';
             >
                 <!-- Primary Navigation Menu -->
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex h-16 justify-between">
-                        <div class="flex">
-
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <a href="route('logout')">Log out</a>
-                            </div>
+                    <div class="flex h-16 justify-between flex-row-reverse">
+                        <div class="space-x-8 pt-4 pr-8 text-right">
+                            <a href="/admin-logout">Log out</a>
                         </div>
                     </div>
                 </div>

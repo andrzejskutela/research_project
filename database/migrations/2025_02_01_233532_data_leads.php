@@ -11,11 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('data_group_runs', function (Blueprint $table) {
+            $table->id();
+            $table->string('uuid')->unique();
+            $table->tinyInteger('leg');
+            $table->string('label');
+            $table->timestamps();
+        });
+
         Schema::create('data_leads', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->tinyInteger('leg');
-            $table->tinyInteger('data_entry_code');
+            $table->foreignId('data_group_run_id')->nullable()->references('id')->on('data_group_runs')->onDelete('cascade');
             $table->string('email')->nullable();
             $table->boolean('is_new_browser');
             $table->string('ip');
@@ -49,5 +57,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('data_measurements');
         Schema::dropIfExists('data_leads');
+        Schema::dropIfExists('data_group_runs');
     }
 };

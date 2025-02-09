@@ -115,7 +115,7 @@ class ResearchController extends Controller
             [ 'uuid' => $request->input('uuid') ],
             [
                 'leg' => session('leg', DataLead::LEG_INTERVENTION),
-                'data_entry_code' => DataLead::ENTRY_SINGLE,
+                'data_group_run_id' => null,
                 'is_new_browser' => $isNewBrowser,
                 'ip' => $request->ip(),
                 'user_agent' => $request->userAgent(),
