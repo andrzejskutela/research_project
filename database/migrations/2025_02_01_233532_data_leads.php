@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('data_group_runs', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')->unique();
+            $table->string('code')->unique();
             $table->tinyInteger('leg');
             $table->string('label');
+            $table->boolean('active');
             $table->timestamps();
         });
 

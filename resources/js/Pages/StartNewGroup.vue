@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue'
 import { FwbButton, FwbInput, FwbSelect } from 'flowbite-vue'
 
-const props = defineProps({ data: Object })
+const { props } = defineProps({ data: Object })
 
 let group_label = ref('')
 let group_type = ref('')
@@ -19,10 +19,10 @@ function prcessNewGroup() {
         group: group_type.value
       }
 
-      axios.post(props.data.new_group_link, dataToSend)
+      axios.post(props.new_group_link, dataToSend)
           .then(function (response) {
-            if (response && response.data.data && response.data.data.continue_link) {
-              window.location.href = response.data.data.continue_link
+            if (response && response.data) {
+              // register new group and redirect to new group page with instructions and qr code
             }
           })
           .catch(function (error) {
@@ -42,14 +42,9 @@ function prcessNewGroup() {
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        <fwb-input v-model="group_label" label="label" class="mb-4"/>
-                        <fwb-select v-model="group_type" :options="group_types" label="Group type?" class="mb-4"/>
-                        <fwb-button gradient="blue" @click="prcessNewGroup" class="text-lg">Start new group</fwb-button>
-                    </div>
-                </div>
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 text-center">
+                <img :src="data.qr_img" class="mx-auto">
+                <p class="text-4xl">{{ data.full_link }}</p>
             </div>
         </div>
     </AuthenticatedLayout>
