@@ -27,7 +27,7 @@ class DataLead extends Model
         return $this->hasMany(DataMeasurement::class, 'data_lead_id', 'id');
     }
 
-    public function group() : ?HasMany {
+    public function group() : ?BelongsTo {
         return $this->belongsTo(DataGroupRun::class, 'data_group_run_id', 'id');
     }
 

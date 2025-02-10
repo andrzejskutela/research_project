@@ -36,7 +36,7 @@ class AdminDashboardController extends Controller
             'code' => DataGroupRun::generateRandomGroupCode(),
             'leg' => $legs[ $request->input('group') ],
             'label' => $request->input('label'),
-            'active' => true
+            'status' => DataGroupRun::STATUS_NEW,
         ]);
 
         $group->generateQRImage(route('start_new_from_group', ['code' => $group->code]));
@@ -52,10 +52,35 @@ class AdminDashboardController extends Controller
         $code = $request->route()->parameter('code');
         $group = DataGroupRun::where('code', $code)->firstOrFail();
 
-        return Inertia::render('StartNewGroup', [
+        return Inertia::render('GroupIntroduction', [
             'data' => [
                 'qr_img' => asset('/qr/' . $group->id . '.png'),
                 'full_link' => route('start_new_from_group', ['code' => $group->code]),
+                'leg' => $group->leg,
+                'continue_link' => route('group_instructions', ['code' => $group->code])
+            ]
+        ]);
+    }
+
+    public function groupInstructions(Request $request) {
+        $code = $request->route()->parameter('code');
+        $group = DataGroupRun::where('code', $code)->firstOrFail();
+
+        return Inertia::render('GroupInstructions', [
+            'data' => [
+                'continue_link' => route('enable_group_task', ['code' => $group->code])
+            ]
+        ]);
+    }
+
+    public function enableTask(Request $request) {
+        $code = $request->route()->parameter('code');
+        $group = DataGroupRun::where('code', $code)->firstOrFail();
+        $group->status = DataGroupRun::STATUS_RUNNING;
+        $group->save();
+
+        return Inertia::render('EnableGroupTask', [
+            'data' => [
             ]
         ]);
     }

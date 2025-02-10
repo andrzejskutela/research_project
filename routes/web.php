@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin-dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin');
     Route::post('/admin-new-group', [AdminDashboardController::class, 'newGroup'])->name('register_new_group');
     Route::get('/group/{code}', [AdminDashboardController::class, 'startGroup'])->name('start_new_group');
+    Route::get('/group/{code}/instructions', [AdminDashboardController::class, 'groupInstructions'])->name('group_instructions');
+    Route::get('/group/{code}/task', [AdminDashboardController::class, 'enableTask'])->name('enable_group_task');
 });
 
 
@@ -24,6 +26,7 @@ Route::controller(LandingController::class)->group(function() {
     Route::get('/', 'welcome');
     Route::get('/init', 'redirectWithNewUUID')->name('redirect_uuid');
     Route::get('/init/{code}', 'startFromGroup')->name('start_new_from_group');
+    Route::post('/init/{uuid}/check', 'checkProgress')->name('new_group_start_check');
 });
 
 Route::middleware([App\Http\Middleware\CheckUUID::class, 'cache.headers:no_store'])->controller(ResearchController::class)->group(function() {

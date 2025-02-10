@@ -9,6 +9,10 @@ use chillerlan\QRCode\{QRCode, QROptions, Output\QROutputInterface};
 
 class DataGroupRun extends Model
 {
+    const STATUS_NEW = 1;
+    const STATUS_RUNNING = 2;
+    const STATUS_CLOSED = 3;
+    
     protected $table = 'data_group_runs';
 
     protected $guarded = [];

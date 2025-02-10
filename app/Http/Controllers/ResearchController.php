@@ -22,10 +22,21 @@ class ResearchController extends Controller
     }
 
     public function introduction(Request $request) {
-        $controlRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_CONTROL)->where('is_new_browser', true)->count();
-        $interventionRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_INTERVENTION)->where('is_new_browser', true)->count();
-        // $leg = $controlRuns > $interventionRuns ? DataLead::LEG_INTERVENTION : DataLead::LEG_CONTROL;
-        $leg = DataLead::LEG_INTERVENTION;
+        $leg = null;
+        if (session('unique_id') == $request->route()->parameter('uuid')) {
+            $lead = DataLead::where('uuid', session('unique_id'))->whereNotNull('data_group_run_id')->first();
+            if ($lead) {
+                $leg = $lead->leg;
+            }
+        }
+
+        if ($leg === null) {
+            $controlRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_CONTROL)->where('is_new_browser', true)->count();
+            $interventionRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_INTERVENTION)->where('is_new_browser', true)->count();
+            $leg = $controlRuns > $interventionRuns ? DataLead::LEG_INTERVENTION : DataLead::LEG_CONTROL;
+            // $leg = DataLead::LEG_INTERVENTION;
+        }
+        
         session(['leg' => $leg]);
 
         return Inertia::render('Introduction', [

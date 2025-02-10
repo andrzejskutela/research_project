@@ -50,6 +50,7 @@ function continueGame() {
       currentPicture.value = 0
       correctAnswers.value = 0
       currentDisplaySet.value = data.order[currentSetIndex.value]
+      uploadTimer = []
       showModal.value = false
     } else {
       allowExit = true

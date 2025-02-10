@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->tinyInteger('leg');
             $table->string('label');
-            $table->boolean('active');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
 
