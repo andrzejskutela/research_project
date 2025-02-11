@@ -97,13 +97,15 @@ function select(item) {
 
       axios.post(data.data_link, dataToSend)
       .then(function (response) {
+        showModal.value = true
         // console.log(response);
       })
       .catch(function (error) {
+        showModal.value = true
         // console.log(error);
       });
 
-      showModal.value = true
+      
   }
 }
 
@@ -119,7 +121,6 @@ function select(item) {
         <TransitionGroup name="fade-shuffle" tag="ul" @enter="registerTimer">
           <li v-for="item,index in showImages" :key="item" class="display-block py-8 my-4 border-2 border-color-300 border-solid bg-gray-100 mx-8 relative cursor-pointer" @click="select(item.i)">
             <img :src="item.src" class="m-auto" width="400">
-            <span class="display-block absolute top-2 left-2 text-3xl text-slate-400">{{ index + 1 }}</span>
           </li>
         </TransitionGroup>
       </ul>
