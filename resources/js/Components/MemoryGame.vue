@@ -71,7 +71,7 @@ function select(item) {
     });
 
     if (item === currentPicture.value) {
-      uploadTimer.push(performance.now() - setTimer)
+      uploadTimer.push(Math.round(performance.now() - setTimer))
       correctAnswers.value += 1;
       isCorrect = true
     } else {
@@ -99,16 +99,14 @@ function select(item) {
       axios.post(data.data_link, dataToSend)
       .then(function (response) {
         showModal.value = true
-        lastResponse = response
-        // console.log(response);
       })
       .catch(function (error) {
         showModal.value = true
-        lastResponse = response
-        // console.log(error);
+        lastResponse.value = {
+          error: error,
+          sent: dataToSend,
+        }
       });
-
-      
   }
 }
 
@@ -141,7 +139,7 @@ function select(item) {
           <p v-if="data.display_control_info" class="my-4">You have now finished the preparation task and should be familiar with the system. When ready, please tap the button below and you will be shown
       the memory game three more times in the following order: nature landscapes, female faces, and male faces. Good luck.
           </p>
-          <pre class="overflow-auto whitespace-pre">{{ }}</pre>
+          <pre class="overflow-auto whitespace-pre" v-if="lastResponse != ''">{{ lastResponse }}</pre>
         </template>
         <template #footer>
           <div class="flex justify-between">
