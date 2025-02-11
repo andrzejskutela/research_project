@@ -8,6 +8,7 @@ const isGameFinished = ref(false)
 let currentSetIndex = ref(0);
 let currentPicture = ref(0);
 let correctAnswers = ref(0);
+let lastResponse = ref('')
 let showModal = ref(false)
 let currentDisplaySet = ref(data.order[currentSetIndex.value]);
 let setTimer = 0
@@ -98,10 +99,12 @@ function select(item) {
       axios.post(data.data_link, dataToSend)
       .then(function (response) {
         showModal.value = true
+        lastResponse = response
         // console.log(response);
       })
       .catch(function (error) {
         showModal.value = true
+        lastResponse = response
         // console.log(error);
       });
 
@@ -138,6 +141,7 @@ function select(item) {
           <p v-if="data.display_control_info" class="my-4">You have now finished the preparation task and should be familiar with the system. When ready, please tap the button below and you will be shown
       the memory game three more times in the following order: nature landscapes, female faces, and male faces. Good luck.
           </p>
+          <pre class="overflow-auto whitespace-pre">{{ }}</pre>
         </template>
         <template #footer>
           <div class="flex justify-between">

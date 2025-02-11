@@ -28,17 +28,17 @@ class DataGroupRun extends Model
         $options->imageTransparent = true;
         $options->returnResource = true;
         $gdImage = (new QRCode($options))->render($path);
-        imagepng($gdImage, public_path('qr/' . $this->id . '.png'));
+        imagepng($gdImage, public_path('qr/' . $this->code . '.png'));
     }
 
     public static function generateRandomGroupCode() {
-        $chars = str_split('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+_', length: 1);
+        $chars = str_split('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', length: 1);
         $charsLength = count($chars);
         do {
             $hash = sha1(Str::uuid());
             $code = '';
-            for ($i = 0; $i < strlen($hash); $i += 4) {
-                $hex = substr($hash, $i, 4);
+            for ($i = 0; $i < strlen($hash); $i += 5) {
+                $hex = substr($hash, $i, 5);
                 $dec = hexdec($hex);
                 $code .= $chars[ $dec % $charsLength ];
             }

@@ -54,7 +54,7 @@ class AdminDashboardController extends Controller
 
         return Inertia::render('GroupIntroduction', [
             'data' => [
-                'qr_img' => asset('/qr/' . $group->id . '.png'),
+                'qr_img' => asset('/qr/' . $group->code . '.png'),
                 'full_link' => route('start_new_from_group', ['code' => $group->code]),
                 'leg' => $group->leg,
                 'continue_link' => route('group_instructions', ['code' => $group->code])
