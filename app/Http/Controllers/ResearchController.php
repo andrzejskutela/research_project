@@ -104,7 +104,9 @@ class ResearchController extends Controller
 
     public function final(Request $request) {
         return Inertia::render('Final', [
-            'data' => []
+            'data' => [
+                'app_url' => route('landing_page'),
+            ]
         ]);
     }
 
@@ -187,7 +189,8 @@ class ResearchController extends Controller
             'gender' => 'gender',
             'meditation' => 'meditation_exp',
             'exercise' => 'exercise_exp',
-            'coffee' => 'coffee_exp'
+            'coffee' => 'coffee_exp',
+            'email' => 'email'
         ];
 
         foreach ($fields as $k => $v) {

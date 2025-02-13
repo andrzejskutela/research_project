@@ -118,13 +118,11 @@ function select(item) {
         <span>Select the newly added image: </span>
         <span class="text-green-500">{{ correctAnswers }} correct answers</span>
       </p>
-      <ul>
-        <TransitionGroup name="fade-shuffle" tag="ul" @enter="registerTimer">
-          <li v-for="item,index in showImages" :key="item" class="display-block py-8 my-4 border-2 border-color-300 border-solid bg-gray-100 mx-8 relative cursor-pointer" @click="select(item.i)">
-            <img :src="item.src" class="m-auto" width="400">
-          </li>
-        </TransitionGroup>
-      </ul>
+      <TransitionGroup name="fade-shuffle" tag="ul" @enter="registerTimer" class="mr-[80px]">
+        <li v-for="item,index in showImages" :key="item" class="display-block py-4 my-4 border-2 border-color-300 border-solid bg-gray-100 relative">
+          <img :src="item.src" class="m-auto cursor-pointer" width="400" @click="select(item.i)">
+        </li>
+      </TransitionGroup>
 
       <fwb-modal v-if="showModal" @close="continueGame" persistent>
         <template #header>

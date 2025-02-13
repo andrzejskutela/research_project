@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::controller(LandingController::class)->group(function() {
-    Route::get('/', 'welcome');
+    Route::get('/', 'welcome')->name('landing_page');
     Route::get('/init', 'redirectWithNewUUID')->name('redirect_uuid');
     Route::get('/init/{code}', 'startFromGroup')->name('start_new_from_group');
     Route::post('/init/{uuid}/check', 'checkProgress')->name('new_group_start_check');
