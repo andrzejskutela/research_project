@@ -13,13 +13,15 @@ let email = ref('')
 let meditation_experience = ref('')
 let exercise_experience = ref('')
 let coffee_experience = ref('')
+let english_first_lang = ref('')
 let errors = ref({
   age: '',
   gender: '',
   email: '',
   exercise: '',
   coffee: '',
-  meditation_experience: ''
+  meditation_experience: '',
+  english: '',
 })
 
 const genders = [
@@ -46,6 +48,11 @@ const coffee_options = [
   { value: '3', name: "I drink coffee everyday" },
 ]
 
+const english_options = [
+  { value: 'n', name: "No" },
+  { value: 'y', name: 'Yes' },
+]
+
 function clearErrors() {
   for (let key in errors.value) {
       errors.value[key] = ''
@@ -59,6 +66,7 @@ function processForm() {
     uuid: data.uuid,
     age: age.value,
     gender: gender.value,
+    english: english_first_lang.value,
     email: email.value,
     meditation: meditation_experience.value,
     exercise: exercise_experience.value,
@@ -94,6 +102,8 @@ function processForm() {
       <fwb-input v-model="age" required placeholder="age" label="Please provide your age" :validation-status="errors.age" type="number" class="mb-2"/>
 
       <fwb-select v-model="gender" :options="genders" label="Gender" :validation-status="errors.gender" class="mb-4"/>
+
+      <fwb-select v-model="english_first_lang" :options="english_options" label="Is English your native language?" :validation-status="errors.english" class="mb-4"/>
 
       <fwb-select v-model="exercise_experience" :options="exercise_options" label="Do you exercise or live physically active life?" :validation-status="errors.exercise" class="mb-4"/>
 

@@ -181,6 +181,10 @@ class ResearchController extends Controller
                 'nullable',
                 Rule::in([ DataLead::EXP_NONE, DataLead::EXP_SOME, DataLead::EXP_REGULAR ]),
             ],
+            'english' => [
+                'required',
+                Rule::in([ 'y', 'n' ]),
+            ],
         ]);
 
         $lead = DataLead::where('uuid', $request->input('uuid'))->firstOrFail();
@@ -199,6 +203,8 @@ class ResearchController extends Controller
                 $lead->$v = $value;
             }
         }
+
+        $lead->english_native = $request->input('english', 'n') === 'y' ? true : false;
 
         if ($lead->measurements()->count() === count(MemoryTest::getAllPossibleSets())) {
             $lead->completed = true;
