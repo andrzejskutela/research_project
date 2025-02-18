@@ -31,8 +31,8 @@ class ResearchController extends Controller
         }
 
         if ($leg === null) {
-            $controlRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_CONTROL)->where('is_new_browser', true)->count();
-            $interventionRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_INTERVENTION)->where('is_new_browser', true)->count();
+            $controlRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_CONTROL)->count();
+            $interventionRuns = DataLead::where('completed', true)->where('leg', DataLead::LEG_INTERVENTION)->count();
             $leg = $controlRuns > $interventionRuns ? DataLead::LEG_INTERVENTION : DataLead::LEG_CONTROL;
             // $leg = DataLead::LEG_INTERVENTION;
         }
